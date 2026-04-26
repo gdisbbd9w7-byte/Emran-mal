@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pro Ad Dashboard</title>
+
+<!-- Monetag -->
+<script src='//libtl.com/sdk.js' data-zone='10832265' data-sdk='show_10832265'></script>
+
+<style>
+body{
+    font-family:sans-serif;
+    background:#0f172a;
+    color:#fff;
+    text-align:center;
+}
+.box{
+    max-width:400px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    background:#1e293b;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:#4a6bff;
+    color:#fff;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🔥 Pro Dashboard</h2>
+
+<div class="card">
+<p>👤 User: <span id="uid"></span></p>
+<p id="status">⏳ Checking Ads...</p>
+</div>
+
+<button onclick="showAd()">📢 Show Ad</button>
+
+</div>
+
+<script>
+
+// ✅ YOUR FALLBACK LINK
+const fallbackLink = "https://omg10.com/4/10838634";
+
+// USER ID
+let userId = localStorage.getItem("uid");
+if(!userId){
+    userId = "user_" + Math.floor(Math.random()*999999);
+    localStorage.setItem("uid", userId);
+}
+document.getElementById("uid").innerText = userId;
+
+// CHECK MONETAG
+function checkAd(){
+    if(typeof window.show_10832265 === "function"){
+        document.getElementById("status").innerText = "✅ Monetag Ready";
+    } else {
+        setTimeout(checkAd, 1000);
+    }
+}
+checkAd();
+
+// SHOW AD
+function showAd(){
+
+    if(typeof window.show_10832265 === "function"){
+
+        document.getElementById("status").innerText = "📢 Monetag Ad Showing...";
+
+        window.show_10832265().then(()=>{
+            document.getElementById("status").innerText = "✅ Monetag Finished";
+        }).catch(()=>{
+            runFallback();
+        });
+
+    } else {
+        runFallback();
+    }
+}
+
+// FALLBACK SYSTEM
+function runFallback(){
+
+    document.getElementById("status").innerText = "⚠️ Backup Ad Loading...";
+
+    window.open(fallbackLink, "_blank");
+
+}
+</script>
+
+</body>
+</html>
