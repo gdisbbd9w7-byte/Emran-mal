@@ -1,146 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Md Emran - Cyber ID</title>
+<title>মানি ইনকাম</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="//libtl.com/sdk.js"
+data-zone="10832265"
+data-sdk="show_10832265"></script>
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    background: black;
-    font-family: 'Poppins', sans-serif;
-    color: #00ff99;
-    text-align: center;
-    letter-spacing: 0.5px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-/* Background Glow */
-body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0,255,153,0.15), transparent 70%);
-    z-index: -1;
+body{
+background:#f5f5f5;
+padding:20px;
 }
 
-.card {
-    width: 360px;
-    margin: 40px auto;
-    padding: 25px;
-    border-radius: 15px;
-    background: #0d0d0d;
-    box-shadow: 0 0 40px #00ff99;
+.container{
+max-width:500px;
+margin:auto;
 }
 
-/* Profile Image */
-.profile {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 4px solid #00ff99;
-    object-fit: cover;
-    box-shadow: 0 0 25px #00ff99;
+.card{
+background:#fff;
+padding:20px;
+border-radius:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+margin-bottom:15px;
 }
 
-/* Name */
-h2 {
-    margin: 15px 0 5px;
-    letter-spacing: 2px;
+.balance{
+font-size:35px;
+font-weight:bold;
+margin-top:10px;
 }
 
-/* Clean Text */
-.tag {
-    margin: 6px 0;
-    font-size: 15px;
-    letter-spacing: 1px;
-    line-height: 1.6;
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
 }
 
-/* Typing Effect Fix */
-.typing {
-    display: inline-block;
-    border-right: 2px solid #00ff99;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-    animation: typing 3s steps(25, end) forwards, blink 0.7s infinite;
+.orange{
+background:#ff9800;
+color:#fff;
 }
 
-@keyframes typing {
-    from { width: 0 }
-    to { width: 180px }
+.green{
+background:#22c55e;
+color:#fff;
 }
 
-@keyframes blink {
-    50% { border-color: transparent }
+.red{
+background:#ef4444;
+color:#fff;
 }
 
-/* Buttons */
-.btn {
-    display: block;
-    margin: 12px auto;
-    padding: 12px;
-    width: 240px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    transition: 0.3s;
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:10px;
 }
-
-.btn:hover {
-    transform: scale(1.05);
-}
-
-/* Colors */
-.whatsapp { background: #25D366; }
-.telegram { background: #0088cc; }
-.facebook { background: #1877f2; }
-.gmail { background: #EA4335; }
-
 </style>
 </head>
-
 <body>
 
+<div class="container">
+
 <div class="card">
+<h2>মানি ইনকাম</h2>
+<p>বর্তমান ব্যালেন্স</p>
 
-    <img src="https://i.postimg.cc/ftyJBXND/1775919513833.png" class="profile">
+<div class="balance">
+৳ <span id="balance">0.00</span>
+</div>
+</div>
 
-    <h2>Md Emran</h2>
+<div class="card">
+<h3>টাস্ক</h3>
 
-    <p class="typing">Access Granted ✔</p>
+<button class="orange" onclick="rewardAd()">
+Reward Ad দেখুন
+</button>
 
-    <p class="tag">Cyber Security Specialist</p>
-    <p class="tag">Ethical Hacker | Digital Protector</p>
-    <p class="tag">Hack না, Protect করি 🔐</p>
+<button class="orange" onclick="popupAd()">
+Popup Ad দেখুন
+</button>
+</div>
 
-    <p class="tag">📞 01320512829</p>
-    <p class="tag">📧 emranmal94@gmail.com</p>
+<div class="card">
+<h3>Withdraw</h3>
 
-    <a href="https://wa.me/message/OVQXK544WNRSE1" target="_blank" class="btn whatsapp">
-        💬 WhatsApp
-    </a>
+<input type="number" id="amount" placeholder="টাকার পরিমাণ">
 
-    <a href="https://t.me/meemran" target="_blank" class="btn telegram">
-        📩 Telegram
-    </a>
-
-    <a href="https://www.facebook.com/md.emran.752107" target="_blank" class="btn facebook">
-        👍 Facebook
-    </a>
-
-    <a href="mailto:emranmal94@gmail.com" class="btn gmail">
-        📧 Gmail
-    </a>
+<button class="red" onclick="withdrawMoney()">
+Withdraw Request
+</button>
+</div>
 
 </div>
+
+<script>
+
+let balance =
+parseFloat(localStorage.getItem("balance") || 0);
+
+updateBalance();
+
+function updateBalance(){
+document.getElementById("balance").innerText =
+balance.toFixed(2);
+
+localStorage.setItem("balance", balance);
+}
+
+async function rewardAd(){
+
+try{
+
+if(typeof show_10832265 !== "function"){
+alert("SDK Ready হয়নি");
+return;
+}
+
+await show_10832265();
+
+balance += 0.15;
+
+updateBalance();
+
+alert("০.১৫৳ যোগ হয়েছে");
+
+}catch(e){
+
+alert("Ad পাওয়া যায়নি");
+
+}
+
+}
+
+async function popupAd(){
+
+try{
+
+if(typeof show_10832265 !== "function"){
+alert("SDK Ready হয়নি");
+return;
+}
+
+await show_10832265('pop');
+
+balance += 0.15;
+
+updateBalance();
+
+alert("০.১৫৳ যোগ হয়েছে");
+
+}catch(e){
+
+alert("Popup Ad পাওয়া যায়নি");
+
+}
+
+}
+
+function withdrawMoney(){
+
+let amount =
+parseFloat(document.getElementById("amount").value);
+
+if(!amount){
+alert("পরিমাণ লিখুন");
+return;
+}
+
+if(amount < 50){
+alert("মিনিমাম ৫০৳");
+return;
+}
+
+if(amount > balance){
+alert("পর্যাপ্ত ব্যালেন্স নেই");
+return;
+}
+
+balance -= amount;
+
+updateBalance();
+
+alert("Withdraw Request Submitted");
+
+}
+
+</script>
 
 </body>
 </html>
